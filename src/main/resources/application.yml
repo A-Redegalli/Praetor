@@ -76,5 +76,9 @@ hmac:
   secret:
     key: ${HMAC_SECRET_KEY}
 
-
+services:
+  dominatus:
+    base-url: ${DOMINATUS_BASE_URL}
+  auctoritas:
+    base-url: ${AUCTORITAS_BASE_URL}
 

@@ -2,7 +2,6 @@ package it.aredegalli.praetor.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import it.aredegalli.praetor.security.context.UserContext;
-import it.aredegalli.praetor.security.context.UserContextHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +27,7 @@ public class JwtAuthenticationFilter implements WebFilter {
         ServerHttpRequest request = exchange.getRequest();
         String header = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
-        if (header.startsWith("Bearer ")) {
+        if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
             if (jwtValidator.validate(token)) {
                 Claims claims = jwtValidator.getClaims(token);
@@ -43,14 +42,15 @@ public class JwtAuthenticationFilter implements WebFilter {
                         .roles(roles)
                         .build();
 
-                UserContextHolder.set(userContext);
-                log.debug("UserContext impostato: {}", userContext);
+                log.debug("UserContext impostato nel Reactor Context: {}", userContext);
+                return chain.filter(exchange)
+                        .contextWrite(ctx -> ctx.put(UserContext.class, userContext));
             } else {
                 log.warn("JWT non valido ricevuto.");
             }
         }
 
-        return chain.filter(exchange)
-                .doFinally(signal -> UserContextHolder.clear());
+        return chain.filter(exchange);
     }
 }
+

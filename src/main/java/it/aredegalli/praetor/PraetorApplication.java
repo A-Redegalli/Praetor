@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableAsync
 @EnableScheduling
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"it.aredegalli.praetor"})
 public class PraetorApplication {
 
     public static void main(String[] args) {
