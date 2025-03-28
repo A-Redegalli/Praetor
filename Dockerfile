@@ -13,7 +13,7 @@ ENV PRAETOR_PROFILE=docker
 WORKDIR /app
 
 # Copy JAR from previous stage
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/*.jar praetor-v.1.0.0.jar
 
 # Run the app
-ENTRYPOINT ["java", "-Xmx128m", "-Xms64m", "-XX:+UseSerialGC", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xmx128m", "-Xms64m", "-XX:+UseSerialGC", "-jar", "praetor-v.1.0.0.jar"]

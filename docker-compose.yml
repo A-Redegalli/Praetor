@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  praetor:
-    container_name: praetor
+  praetor-be:
+    container_name: praetor-be
     build:
       context: .
       dockerfile: Dockerfile
