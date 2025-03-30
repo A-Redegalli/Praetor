@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
-        ErrorResponse error = ErrorResponse.of("INTERNAL_ERROR", "Unexpected error occurred");
+        ErrorResponse error = ErrorResponse.of("INTERNAL_ERROR", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }

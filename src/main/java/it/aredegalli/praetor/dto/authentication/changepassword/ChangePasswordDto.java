@@ -1,6 +1,6 @@
 package it.aredegalli.praetor.dto.authentication.changepassword;
 
-import it.aredegalli.dominatus.validator.annotation.StrongPassword;
+import it.aredegalli.praetor.validator.annotation.StrongPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
