@@ -17,5 +17,8 @@ WORKDIR /app
 # Copia il JAR dallo stage precedente e lo rinomina
 COPY --from=builder /app/target/*.jar praetor.jar
 
-ENTRYPOINT ["java", "-Xmx128m", "-Xms64m", "-XX:+UseSerialGC", "-jar", "praetor.jar"]
+# Permette override da esterno (es. variabili o docker-compose)
+ENV JAVA_TOOL_OPTIONS="-Xmx128m -Xms64m -XX:+UseSerialGC"
+
+ENTRYPOINT ["java", "-jar", "praetor.jar"]
 
