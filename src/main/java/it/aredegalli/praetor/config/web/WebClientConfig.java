@@ -1,5 +1,6 @@
-package it.aredegalli.praetor.config;
+package it.aredegalli.praetor.config.web;
 
+import it.aredegalli.praetor.config.web.filter.WebClientErrorInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ public class WebClientConfig {
     public WebClient dominatusClient(@Value("${services.dominatus.base-url}") String baseUrl) {
         return WebClient.builder()
                 .baseUrl(baseUrl)
+                .filter(WebClientErrorInterceptor.errorResponseHandler())
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
@@ -22,6 +24,7 @@ public class WebClientConfig {
     public WebClient auctoritasClient(@Value("${services.auctoritas.base-url}") String baseUrl) {
         return WebClient.builder()
                 .baseUrl(baseUrl)
+                .filter(WebClientErrorInterceptor.errorResponseHandler())
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }

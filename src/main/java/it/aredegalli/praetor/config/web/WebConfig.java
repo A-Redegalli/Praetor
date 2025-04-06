@@ -1,4 +1,4 @@
-package it.aredegalli.praetor.config;
+package it.aredegalli.praetor.config.web;
 
 import it.aredegalli.praetor.service.user.current.CurrentUserArgumentResolver;
 import org.springframework.context.annotation.Configuration;

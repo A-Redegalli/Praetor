@@ -59,4 +59,11 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.of("INTERNAL_ERROR", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
+
+    @ExceptionHandler(RemoteServiceException.class)
+    public ResponseEntity<ErrorResponse> handleRemote(RemoteServiceException ex) {
+        ErrorResponse error = ErrorResponse.of(ex.getCode(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(error);
+    }
+
 }

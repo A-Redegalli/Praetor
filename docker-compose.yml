@@ -9,10 +9,12 @@ services:
     env_file:
       - .env
     ports:
-      - "8080:8080"
+      - "5050:8443"
     restart: unless-stopped
     networks:
       - praetor-net
+    extra_hosts:
+      - "local.aredegalli.it:host-gateway"
 
 networks:
   praetor-net:
