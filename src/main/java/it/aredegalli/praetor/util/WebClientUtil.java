@@ -1,7 +1,7 @@
 package it.aredegalli.praetor.util;
 
-import it.aredegalli.praetor.dto.error.ErrorResponse;
-import it.aredegalli.praetor.exception.RemoteServiceException;
+import it.aredegalli.common.dto.ErrorResponseDto;
+import it.aredegalli.common.exception.RemoteServiceException;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
@@ -13,7 +13,7 @@ public class WebClientUtil {
         return clientResponse -> clientResponse
                 .bodyToMono(errorType)
                 .map(error -> {
-                    if (error instanceof ErrorResponse err) {
+                    if (error instanceof ErrorResponseDto err) {
                         return new RemoteServiceException(err.getCode(), err.getMessage());
                     }
                     return new RemoteServiceException("REMOTE_ERROR", clientResponse.statusCode() + " " + error.toString());

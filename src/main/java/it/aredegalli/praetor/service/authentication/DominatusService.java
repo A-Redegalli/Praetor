@@ -1,12 +1,12 @@
 package it.aredegalli.praetor.service.authentication;
 
-import it.aredegalli.praetor.dto.authentication.changepassword.ChangePasswordDto;
-import it.aredegalli.praetor.dto.authentication.login.LoginRequestDto;
-import it.aredegalli.praetor.dto.authentication.login.LoginResponseDto;
-import it.aredegalli.praetor.dto.authentication.refresh.RefreshRequestDto;
-import it.aredegalli.praetor.dto.authentication.refresh.RefreshResponseDto;
-import it.aredegalli.praetor.dto.authentication.register.RegisterRequestDto;
-import it.aredegalli.praetor.dto.authentication.register.RegisterResponseDto;
+import it.aredegalli.dominatus.dto.auth.changepassword.ChangePasswordDto;
+import it.aredegalli.dominatus.dto.auth.login.LoginRequestDto;
+import it.aredegalli.dominatus.dto.auth.login.LoginResponseDto;
+import it.aredegalli.dominatus.dto.auth.refresh.RefreshRequestDto;
+import it.aredegalli.dominatus.dto.auth.refresh.RefreshResponseDto;
+import it.aredegalli.dominatus.dto.auth.register.RegisterRequestDto;
+import it.aredegalli.dominatus.dto.auth.register.RegisterResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;

@@ -1,6 +1,6 @@
 package it.aredegalli.praetor.client;
 
-import it.aredegalli.praetor.dto.authorization.AuthorizationResultDto;
+import it.aredegalli.auctoritas.dto.authorization.AuthorizationResultDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;

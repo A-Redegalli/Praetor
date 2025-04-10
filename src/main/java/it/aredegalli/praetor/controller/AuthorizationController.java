@@ -1,7 +1,7 @@
 package it.aredegalli.praetor.controller;
 
-import it.aredegalli.praetor.dto.authorization.AuthorizationRequestDto;
-import it.aredegalli.praetor.dto.authorization.AuthorizationResultDto;
+import it.aredegalli.auctoritas.dto.authorization.AuthorizationRequestDto;
+import it.aredegalli.auctoritas.dto.authorization.AuthorizationResultDto;
 import it.aredegalli.praetor.security.context.UserContext;
 import it.aredegalli.praetor.service.authorization.AuctoritasService;
 import it.aredegalli.praetor.service.user.current.annotation.CurrentUser;
