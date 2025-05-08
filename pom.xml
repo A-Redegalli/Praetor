@@ -114,11 +114,23 @@
             <groupId>it.aredegalli.common</groupId>
             <artifactId>exceptions</artifactId>
             <version>1.0.0-beta</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>it.aredegalli.common</groupId>
             <artifactId>validation</artifactId>
             <version>1.0.0-beta</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>it.aredegalli.dominatus</groupId>
