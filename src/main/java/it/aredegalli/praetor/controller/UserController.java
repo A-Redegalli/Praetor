@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/praetor/user")
 @Slf4j
 public class UserController {
 

@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/authentication")
+@RequestMapping("/praetor/authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
 

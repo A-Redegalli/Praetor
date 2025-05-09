@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/authorization")
+@RequestMapping("/praetor/authorization")
 @RequiredArgsConstructor
 public class AuthorizationController {
 
