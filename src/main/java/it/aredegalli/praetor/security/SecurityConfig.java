@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .pathMatchers("/praetor/authentication/**").permitAll()
                         .pathMatchers("/praetor/authorization/**").authenticated()
                         .pathMatchers("/actuator/**").permitAll()
-                        .anyExchange().denyAll()
+                        .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
