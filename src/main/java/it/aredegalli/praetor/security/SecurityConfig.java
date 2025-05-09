@@ -34,8 +34,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(auth -> auth
                         .pathMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .pathMatchers("/authentication/**").permitAll()
-                        .pathMatchers("/authorization/**").authenticated()
+                        .pathMatchers("/praetor/authentication/**").permitAll()
+                        .pathMatchers("/praetor/authorization/**").authenticated()
                         .pathMatchers("/actuator/**").permitAll()
                         .anyExchange().denyAll()
                 )
