@@ -3,7 +3,6 @@ package it.aredegalli.praetor.security.context;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Map;
 import java.util.UUID;
 
 @Data
@@ -11,5 +10,4 @@ import java.util.UUID;
 public class UserContext {
     private UUID userId;
     private String email;
-    private Map<UUID, String> roles;
 }
