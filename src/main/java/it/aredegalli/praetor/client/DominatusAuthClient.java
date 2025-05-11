@@ -7,10 +7,13 @@ import it.aredegalli.dominatus.dto.auth.refresh.RefreshRequestDto;
 import it.aredegalli.dominatus.dto.auth.refresh.RefreshResponseDto;
 import it.aredegalli.dominatus.dto.auth.register.RegisterRequestDto;
 import it.aredegalli.dominatus.dto.auth.register.RegisterResponseDto;
+import it.aredegalli.dominatus.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Component
 public class DominatusAuthClient {
@@ -51,6 +54,13 @@ public class DominatusAuthClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(Void.class);
+    }
+
+    public Mono<UserDto> getUserById(UUID userId) {
+        return webClient.get()
+                .uri("/users/{userId}", userId)
+                .retrieve()
+                .bodyToMono(UserDto.class);
     }
 }
 

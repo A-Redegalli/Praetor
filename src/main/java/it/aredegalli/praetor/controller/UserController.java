@@ -1,8 +1,10 @@
 package it.aredegalli.praetor.controller;
 
-import it.aredegalli.praetor.dto.user.UserMeResponse;
+import it.aredegalli.praetor.dto.user.UserDto;
 import it.aredegalli.praetor.security.context.UserContext;
+import it.aredegalli.praetor.service.user.UserService;
 import it.aredegalli.praetor.service.user.current.annotation.CurrentUser;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,14 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/praetor/user")
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
 
+    private final UserService userService;
+
     @GetMapping("/me")
-    public Mono<ResponseEntity<UserMeResponse>> me(@CurrentUser Mono<UserContext> userMono) {
-        return userMono
-                .map(user -> new UserMeResponse(user.getUserId(), user.getEmail(), user.getRoles()))
+    public Mono<ResponseEntity<UserDto>> me(@CurrentUser UserContext userMono) {
+        return userService.getUserFromContext(userMono)
                 .map(ResponseEntity::ok)
                 .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
     }

@@ -22,7 +22,18 @@ public class AuctoritasServiceImpl implements AuctoritasService {
                     if (result.getRoles() == null || result.getRoles().isEmpty()) {
                         return Mono.error(new AccessDeniedException("Utente non autorizzato"));
                     }
-                    return Mono.just(result);
+
+                    UserContext enriched = UserContext.builder()
+                            .userId(user.getUserId())
+                            .email(user.getEmail())
+                            .roles(result.getRoles())
+                            .build();
+
+                    return Mono.deferContextual(ctx ->
+                            Mono.just(result)
+                                    .contextWrite(c -> c.put(UserContext.class, enriched))
+                    );
                 });
     }
+
 }
