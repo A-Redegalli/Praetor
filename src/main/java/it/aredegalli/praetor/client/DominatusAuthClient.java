@@ -9,6 +9,8 @@ import it.aredegalli.dominatus.dto.auth.register.RegisterRequestDto;
 import it.aredegalli.dominatus.dto.auth.register.RegisterResponseDto;
 import it.aredegalli.dominatus.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -57,10 +59,22 @@ public class DominatusAuthClient {
     }
 
     public Mono<UserDto> getUserById(UUID userId) {
-        return webClient.get()
-                .uri("/users/{userId}", userId)
-                .retrieve()
-                .bodyToMono(UserDto.class);
+        return Mono.deferContextual(ctx -> {
+            Authentication authentication = ctx.get(Authentication.class);
+
+            if (authentication instanceof BearerTokenAuthentication bearer) {
+                String token = bearer.getToken().getTokenValue();
+
+                return webClient.get()
+                        .uri("/users/{userId}", userId)
+                        .headers(headers -> headers.setBearerAuth(token))
+                        .retrieve()
+                        .bodyToMono(UserDto.class);
+            }
+
+            return Mono.error(new IllegalStateException("No BearerTokenAuthentication found in context"));
+        });
     }
+
 }
 
