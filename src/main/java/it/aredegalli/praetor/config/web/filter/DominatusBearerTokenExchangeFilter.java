@@ -31,14 +31,14 @@ public class DominatusBearerTokenExchangeFilter implements ExchangeFilterFunctio
                 .map(auth -> (BearerTokenAuthentication) auth)
                 .map(BearerTokenAuthentication::getToken)
                 .map(OAuth2AccessToken::getTokenValue)
-                .defaultIfEmpty(null)
                 .flatMap(token -> {
                     ClientRequest.Builder builder = ClientRequest.from(request);
-                    if (token != null) {
-                        builder.header(HttpHeaders.AUTHORIZATION, "Bearer " + token);
-                    }
+                    builder.header(HttpHeaders.AUTHORIZATION, "Bearer " + token);
                     return next.exchange(builder.build());
-                });
+                })
+                .switchIfEmpty(next.exchange(request));
+
+
     }
 }
 
