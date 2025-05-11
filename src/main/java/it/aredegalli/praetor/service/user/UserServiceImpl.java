@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     private final AuctoritasService auctoritasService;
 
     @Override
-    public Mono<UserDto> getUserFromContext(UserContext userContext, String applicationName) {
-        Mono<Map<UUID, String>> rolesMono = auctoritasService.authorize(userContext, applicationName, "Dominatus")
+    public Mono<UserDto> getUserFromContext(UserContext userContext, String applicationName, String authenticatorName) {
+        Mono<Map<UUID, String>> rolesMono = auctoritasService.authorize(userContext, applicationName, authenticatorName)
                 .map(AuthorizationResultDto::getRoles)
                 .defaultIfEmpty(Map.of());
 

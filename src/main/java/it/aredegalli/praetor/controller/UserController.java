@@ -23,8 +23,10 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
-    public Mono<ResponseEntity<UserDto>> me(@CurrentUser UserContext user, @RequestParam String applicationName) {
-        return userService.getUserFromContext(user, applicationName)
+    public Mono<ResponseEntity<UserDto>> me(@CurrentUser UserContext user,
+                                            @RequestParam String applicationName,
+                                            @RequestParam String authenticatorName) {
+        return userService.getUserFromContext(user, applicationName, authenticatorName)
                 .map(ResponseEntity::ok)
                 .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
     }
