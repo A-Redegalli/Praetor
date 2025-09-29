@@ -30,4 +30,14 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
     }
+
+    @GetMapping("/validate")
+    public Mono<ResponseEntity<UserDto>> validateToken(@CurrentUser UserContext user,
+                                                       @RequestParam String token,
+                                                       @RequestParam String applicationName,
+                                                       @RequestParam String authenticatorName) {
+        return userService.validateToken(user, token, applicationName, authenticatorName)
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
+    }
 }

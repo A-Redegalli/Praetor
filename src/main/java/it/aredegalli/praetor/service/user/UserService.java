@@ -6,4 +6,6 @@ import reactor.core.publisher.Mono;
 
 public interface UserService {
     Mono<UserDto> getUserFromContext(UserContext userContext, String applicationName, String authenticatorName);
+
+    Mono<UserDto> validateToken(UserContext userContext, String token, String applicationName, String authenticatorName);
 }

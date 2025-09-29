@@ -1,8 +1,10 @@
 package it.aredegalli.praetor.service.user;
 
+import io.jsonwebtoken.Claims;
 import it.aredegalli.auctoritas.dto.authorization.AuthorizationResultDto;
 import it.aredegalli.praetor.dto.user.UserDto;
 import it.aredegalli.praetor.security.context.UserContext;
+import it.aredegalli.praetor.security.jwt.JwtValidator;
 import it.aredegalli.praetor.service.authentication.DominatusService;
 import it.aredegalli.praetor.service.authorization.AuctoritasService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     private final DominatusService dominatusService;
     private final AuctoritasService auctoritasService;
+
+    private final JwtValidator jwtValidator;
 
     @Override
     public Mono<UserDto> getUserFromContext(UserContext userContext, String applicationName, String authenticatorName) {
@@ -40,6 +44,23 @@ public class UserServiceImpl implements UserService {
                     .roles(roles)
                     .build();
         });
+    }
+
+    @Override
+    public Mono<UserDto> validateToken(UserContext userContext, String token, String applicationName, String authenticatorName) {
+        if (token == null || token.isBlank() || this.jwtValidator.validate(token)) {
+            return Mono.empty();
+        }
+
+        Claims claims = this.jwtValidator.getClaims(token);
+        String application = claims.get("app") != null ? claims.get("app").toString() : null;
+        String authenticator = claims.getIssuer();
+
+        if (application == null || !application.equals(applicationName) || authenticator == null || !authenticator.equals(authenticatorName)) {
+            return Mono.empty();
+        }
+
+        return this.getUserFromContext(userContext, applicationName, authenticatorName);
     }
 
 
