@@ -48,15 +48,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<UserDto> validateToken(UserContext userContext, String token, String applicationName, String authenticatorName) {
-        if (token == null || token.isBlank() || this.jwtValidator.validate(token)) {
+        if (token == null || token.isBlank() || !this.jwtValidator.validate(token)) {
             return Mono.empty();
         }
 
         Claims claims = this.jwtValidator.getClaims(token);
-        String application = claims.get("app") != null ? claims.get("app").toString() : null;
         String authenticator = claims.getIssuer();
 
-        if (application == null || !application.equals(applicationName) || authenticator == null || !authenticator.equals(authenticatorName)) {
+        if (authenticator == null || !authenticator.equals(authenticatorName)) {
             return Mono.empty();
         }
 
